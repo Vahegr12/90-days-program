@@ -1,5 +1,8 @@
 #include <iostream>
 
+
+
+
 template<class T>
 class My_vector{
 public:
@@ -44,8 +47,10 @@ public:
             this-> _capacity *= 2;
             //////////////////////////////////this->_ptr = realloc(this->_capacity); 
             T* tmp_ptr = new T[this->_capacity];
-            if(tmp_ptr == nullptr){return -1;}
-
+            if(tmp_ptr == nullptr){
+                throw std::bad_alloc();
+                return -1;
+            }
             for(int i = 0; i < this->_size; ++i){
                 tmp_ptr[i] = this->_ptr[i];
             }
@@ -61,13 +66,40 @@ public:
         return 0;
     }
     
-    // bool reserve(){}
+    bool reserve(size_t size){
+         if (this-> _size >= this-> _capacity){
+            this-> _capacity *= 2;
+            //////////////////////////////////this->_ptr = realloc(this->_capacity); 
+            T* tmp_ptr = new T[this->_capacity];
+            if(tmp_ptr == nullptr){
+                throw std::bad_alloc("Error bad_allocation");
+                return -1;
+            }
+
+            if(tmp_ptr == nullptr){return -1;}
+
+            for(int i = 0; i < this->_size; ++i){
+                tmp_ptr[i] = this->_ptr[i];
+            }
+            delete[] this->_ptr;
+            this->_ptr = tmp_ptr;
+        }
+        return 0;
+    }
     
-    // bool insert(size_t pos, T element);
+    bool insert(size_t pos, T element){
+        if (pos < 0 || pos >= this->_size) {
+            throw std::out_of_range("inaccessible position");
+            return -1;
+        }
+        this->_ptr[pos] = element;
+        return 0;
+    }
     
     T at(size_t pos){
         if (pos < 0 || pos >= this->_size) {
         throw std::out_of_range("inaccessible position");
+        return -1;
     }
         return this->_ptr[pos];
     }
@@ -76,7 +108,7 @@ public:
         return this->_size;
     }
     
-    bool empty(){
+    bool is_empty(){
         return !(bool)this->_size;
     }
 
@@ -101,7 +133,7 @@ int main (){
     arr.print();
     std::cout << "size is: " << arr.size() << std::endl;
     std::cout << "Capacity is: " << arr.capacity() << std::endl;
-    std::cout << "is empty: " << arr.empty() << std::endl;
+    std::cout << "is empty: " << arr.is_empty() << std::endl;
     std::cout << "at 3 is: " << arr.at(3) << std::endl;
     std::cout << "[4] is: " << arr[4] << std::endl;
 
