@@ -89,6 +89,7 @@ size_t My_vector_capacity(My_vector* vec){
 }
 
 int main(){
+    int main(){
     My_vector arr;
     My_vector* arr_ptr = &arr;
     My_vector_init_size(arr_ptr, 1);
@@ -99,6 +100,8 @@ int main(){
     My_vector_print(arr_ptr);
     size_t tmp_size = My_vector_size(arr_ptr);
     size_t tmp_capacity = My_vector_capacity(arr_ptr);
+    printf(" %d %ld %ld",tmp_num,tmp_size,tmp_capacity);
     My_vector_destroy(arr_ptr);
     return 0;
+}
 }
