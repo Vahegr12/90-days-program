@@ -1,67 +1,3 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-
-// typedef struct Dynamic_array{
-//     int* _ptr;
-//     size_t _size;
-//     size_t _capacity;
-// } Dmc_arr;
-
-// void init_dmc_arr(Dmc_arr* arr_obj, size_t size){
-//     if(size == 0){
-//         return;
-//     }
-//     arr_obj->_size = size ;
-//     arr_obj->_capacity = size * sizeof(int);
-
-//     arr_obj->_ptr = (int*)calloc(size,sizeof(int));
-// }
-
-// void free_dmc_arr(Dmc_arr* arr_obj) {
-//     free(arr_obj->_ptr);
-//    arr_obj->_ptr = NULL;
-//    arr_obj->_size = 0;
-//    arr_obj->_capacity = 0;
-// }
-
-// void print_Dmc_arr(Dmc_arr* arr_obj){
-//     printf("the array is: ");
-//     for(int i = 0; i < arr_obj->_size; ++i){
-//         printf("%d ", arr_obj->_ptr[i]);
-//     }
-//     printf("\n");
-// }
-
-// void push_back(Dmc_arr* arr_obj, int element){
-    
-//     if(arr_obj->_size >= arr_obj->_capacity){
-//         arr_obj->_capacity *= 2;
-//         arr_obj->_ptr = realloc(arr_obj->_ptr, arr_obj->_capacity );
-        
-//     }
-
-//     arr_obj->_ptr[arr_obj->_size] = element;
-//     ++arr_obj->_size;
-
-// }
-
-
-// int main(){
-//     Dmc_arr array_1;
-//     Dmc_arr* arr_obj = &array_1;
-//     init_dmc_arr(arr_obj, 10100);
-//     push_back(arr_obj, 2);
-//     push_back(arr_obj, 2);
-//     push_back(arr_obj, 2);
-
-//     // print_Dmc_arr(arr_obj);
-
-
-
-//     free_dmc_arr(arr_obj);
-//     return 0;
-// }
-
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -144,6 +80,13 @@ int My_vector_insert(My_vector* vec, int pos, int element){
     vec->_ptr[pos] = element;
     return 0;
 }
+size_t My_vector_size(My_vector* vec){
+    return vec->_size;
+}
+
+size_t My_vector_capacity(My_vector* vec){
+    return vec->_capacity;
+}
 
 int main(){
     My_vector arr;
@@ -152,8 +95,10 @@ int main(){
     My_vector_push_back(arr_ptr, 10);
     My_vector_push_back(arr_ptr, 10);
     My_vector_insert(arr_ptr,0,10);
-    My_vector_at(arr_ptr,1);
+    int tmp_num = My_vector_at(arr_ptr,1);
     My_vector_print(arr_ptr);
+    size_t tmp_size = My_vector_size(arr_ptr);
+    size_t tmp_capacity = My_vector_capacity(arr_ptr);
     My_vector_destroy(arr_ptr);
     return 0;
 }
